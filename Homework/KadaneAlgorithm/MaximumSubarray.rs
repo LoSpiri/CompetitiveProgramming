@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/maximum-subarray/description/
+// https://leetcode.com/problems/maximum-subarray/
 // KadaneAlgorithm
 // Taking advantage of the fact that contiguos subarrays should be included in the max-subarray 
 // Only if they have a positive total sum
