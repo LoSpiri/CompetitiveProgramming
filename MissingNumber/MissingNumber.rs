@@ -1,3 +1,5 @@
+//https://leetcode.com/problems/missing-number/
+
 fn missing_number(nums: Vec<i32>) -> i32 {
     let len = nums.len();
     let sum_usize = (len * (len + 1)) / 2;
