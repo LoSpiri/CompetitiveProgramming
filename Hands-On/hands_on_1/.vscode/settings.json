@@ -1,0 +1,9 @@
+{
+    "grammarly.selectors": [
+        {
+            "language": "markdown",
+            "scheme": "file",
+            "pattern": "Handson1_solution_Lorenzo_Spiridioni.md"
+        }
+    ]
+}
