@@ -42,18 +42,12 @@ impl SegmentTree {
     fn update_segment_tree_range_lazy_helper(&mut self, start_range: usize, end_range: usize, delta: i32, low: usize, high: usize, pos: usize) {
         // Update the lazy value for the current node if needed
         if self.lazy[pos] != 0 {
-            if let Some(result) = self.tree[pos].checked_add(self.lazy[pos]) {
-                self.tree[pos] = result;
-            } else {
-                // Handle overflow (you can choose an appropriate strategy)
-                // Here, we set the value to i32::MAX, you may want to adjust it based on your requirements.
-                self.tree[pos] = i32::MIN;
-            }
+            self.tree[pos] = self.tree[pos].min(self.lazy[pos]);
 
             // If not a leaf node, propagate the lazy value to children
             if low != high {
-                self.lazy[2 * pos + 1] += self.lazy[pos];
-                self.lazy[2 * pos + 2] += self.lazy[pos];
+                self.lazy[2 * pos + 1] = self.lazy[2 * pos + 1].min(self.lazy[pos]);
+                self.lazy[2 * pos + 2] = self.lazy[2 * pos + 1].min(self.lazy[pos]);
             }
 
             // Reset the lazy value for the current node
@@ -62,30 +56,24 @@ impl SegmentTree {
 
         // No overlap
         if start_range > high || end_range < low {
-            println!("NO OVERLAP: START - {} - END - {} - LOW - {} - HIGH - {} - POS - {}", start_range, end_range, low, high, pos);
+            // println!("NO OVERLAP: START - {} - END - {} - LOW - {} - HIGH - {} - POS - {}", start_range, end_range, low, high, pos);
             return;
         }
 
         // Total overlap
         if start_range <= low && end_range >= high {
-            println!("TOTAL OVERLAP: START - {} - END - {} - LOW - {} - HIGH - {} - POS - {}", start_range, end_range, low, high, pos);
-            if let Some(result) = self.tree[pos].checked_add(delta) {
-                self.tree[pos] = result;
-            } else {
-                // Handle overflow (you can choose an appropriate strategy)
-                // Here, we set the value to i32::MAX, you may want to adjust it based on your requirements.
-                self.tree[pos] = i32::MIN;
-            }
+            // println!("TOTAL OVERLAP: START - {} - END - {} - LOW - {} - HIGH - {} - POS - {}", start_range, end_range, low, high, pos);
+            self.tree[pos] = self.tree[pos].min(delta);
 
             // If not a leaf node, propagate the lazy value to children
             if low != high {
-                self.lazy[2 * pos + 1] += delta;
-                self.lazy[2 * pos + 2] += delta;
+                self.lazy[2 * pos + 1] = self.lazy[2 * pos + 1].min(delta);
+                self.lazy[2 * pos + 2] = self.lazy[2 * pos + 1].min(delta);
             }
             return;
         }
 
-        println!("PARTIAL OVERLAP: START - {} - END - {} - LOW - {} - HIGH - {} - POS - {}", start_range, end_range, low, high, pos);
+        // println!("PARTIAL OVERLAP: START - {} - END - {} - LOW - {} - HIGH - {} - POS - {}", start_range, end_range, low, high, pos);
         // Partial overlap, update both children
         let mid = (low + high) / 2;
         self.update_segment_tree_range_lazy_helper(start_range, end_range, delta, low, mid, 2 * pos + 1);
