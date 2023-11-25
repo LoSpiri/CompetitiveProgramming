@@ -117,7 +117,6 @@ fn read_input_2(file_path: &str) -> io::Result<(Vec<(usize, usize)>, Vec<(usize,
 fn main() {
     // -------------------------------------------------------------------------------------------------
     // TESTING PARTE 1
-    // NOTE (per me):
 
     for i in 0..=10 {
         if let Ok((array, queries)) = read_input_1(&format!("test1/input{}.txt", i)) {
@@ -164,6 +163,4 @@ fn main() {
         }
     }
     // -------------------------------------------------------------------------------------------------
-
-    println!("IO SONO ERMELLINO")
 }
