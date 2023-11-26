@@ -53,9 +53,9 @@ fn read_input_1(
         .filter_map(|s| s.parse::<i32>().ok())
         .collect();
 
-    let mut queries = Vec::with_capacity(m as usize);
+    let mut queries = Vec::with_capacity(m);
 
-    for line in lines.take(m as usize) {
+    for line in lines.take(m) {
         let line = line?;
         let mut values_iter = line.split_whitespace().map(|s| s.parse::<usize>());
 
@@ -94,10 +94,10 @@ fn read_input_2(file_path: &str) -> io::Result<(Vec<(usize, usize)>, Vec<(usize,
         _ => return Err(io::Error::new(io::ErrorKind::InvalidData, "Invalid M")),
     };
 
-    let mut segments: Vec<(usize, usize)> = Vec::with_capacity(n as usize);
-    let mut queries: Vec<(usize, usize, usize)> = Vec::with_capacity(m as usize);
+    let mut segments: Vec<(usize, usize)> = Vec::with_capacity(n);
+    let mut queries: Vec<(usize, usize, usize)> = Vec::with_capacity(m);
 
-    for line in lines.take(n as usize + m as usize) {
+    for line in lines.take(n + m) {
         let line = line?;
         let mut values_iter = line.split_whitespace().map(|s| s.parse::<usize>());
 
@@ -139,7 +139,7 @@ fn main() {
             }
             if let Ok(output_1) = read_output(&format!("test1/output{}.txt", i)) {
                 assert_eq!(output_1, result_queries_1);
-                println!("{:?}", result_queries_1);
+                // println!("{:?}", result_queries_1);
             }
         }
     }
@@ -152,11 +152,11 @@ fn main() {
     for i in 0..=7 {
         if let Ok((segments, queries)) = read_input_2(&format!("test2/input{}.txt", i)) {
             let mut st_2: SegmentTree2 = SegmentTree2::new(&segments);
-            let result_queries_2 = st_2.range_maximum_query_lazy_array(&queries);
+            let result_queries_2 = st_2.range_is_there_query_lazy_array(&queries);
 
             if let Ok(output_2) = read_output(&format!("test2/output{}.txt", i)) {
                 assert_eq!(output_2, result_queries_2);
-                println!("{:?}", result_queries_2);
+                // println!("{:?}", result_queries_2);
             }
         } else {
             eprintln!("Error reading file.");
