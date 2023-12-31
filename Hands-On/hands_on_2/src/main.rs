@@ -146,8 +146,6 @@ fn main() {
 
     // -------------------------------------------------------------------------------------------------
     // TESTING PARTE 2
-    // NOTE (per me):
-    // La query si ferma prima anche se la chiave da trovare é maggiore del valore attuale
 
     for i in 0..=7 {
         if let Ok((segments, queries)) = read_input_2(&format!("test2/input{}.txt", i)) {
