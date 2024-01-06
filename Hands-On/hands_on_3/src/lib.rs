@@ -21,7 +21,6 @@ pub fn holiday_planner(input: Vec<Vec<i32>>, n: usize, days: usize) -> i32 {
         let mut max_value = i32::MIN;
         let mut indices_of_max = vec![0; n];
         for local_day in 0..day {
-            // optimum[local_day] + max(pref[day-local_day] - pref[indices[local_day]])
             let local_optimum = optimum_vector[local_day];
             let mut max_local_diff = i32::MIN;
             let mut local_indices_of_max = vec![0; n];
