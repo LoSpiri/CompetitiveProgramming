@@ -9,10 +9,10 @@ fn longest_increasing_subsequence_dp(nums: &[i32]) -> usize {
     }
     dp.into_iter().max().unwrap_or(0)
 }
+
 fn binary_search(tails: &Vec<i32>, target: i32, end: usize) -> usize {
     let mut start = 0;
     let mut end = end;
-
     while start < end {
         let mid = (start + end) / 2;
         if tails[mid] < target {
@@ -21,14 +21,11 @@ fn binary_search(tails: &Vec<i32>, target: i32, end: usize) -> usize {
             end = mid;
         }
     }
-
     end
 }
 
-// Function to find the length of the longest increasing subsequence
 fn longest_increasing_subsequence_bs(arr: &Vec<i32>) -> usize {
     let mut tails = Vec::new();
-
     for &num in arr {
         let pos = binary_search(&tails, num, tails.len());
 
@@ -38,7 +35,6 @@ fn longest_increasing_subsequence_bs(arr: &Vec<i32>) -> usize {
             tails[pos] = num;
         }
     }
-
     tails.len()
 }
 
