@@ -20,7 +20,7 @@ fn subset_sum(arr: &[i32]) -> bool {
             }
         }
     }
-    
+
     dp[n][half_sum as usize]
 }
 
