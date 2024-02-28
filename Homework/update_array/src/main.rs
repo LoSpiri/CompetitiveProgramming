@@ -92,31 +92,21 @@ impl UpdateArray {
 }
 
 fn main() {
-    let mut tree = FenwickTree::with_len(10);
-    tree.add(0, 1);
-    tree.add(1, 2);
-    tree.add(2, 3);
-    tree.add(3, 4);
-    tree.add(4, 5);
-    tree.add(5, 6);
-    tree.add(6, 7);
-    tree.add(7, 8);
-    tree.add(8, 9);
-    tree.add(9, 10);
+    let test_cases = vec![
+        (5, vec![(0, 1, 7), (2, 4, 6), (1, 3, 2)]),
+    ];
 
-    println!("{:?}", tree);
-    println!("{}", tree.sum(9));
-    println!("{}", tree.range_sum(8, 9));
+    for (n, updates) in test_cases {
+        let mut tree = UpdateArray::with_len(n);
 
-    let mut arr = UpdateArray::with_len(6);
-    arr.range_update(0, 5, 1);
-    arr.range_update(0, 4, 2);
-    arr.range_update(4, 5, 3);
-    println!("{:?}", arr);
-    println!("{}", arr.access(0));
-    println!("{}", arr.access(1));
-    println!("{}", arr.access(2));
-    println!("{}", arr.access(3));
-    println!("{}", arr.access(4));
-    println!("{}", arr.access(5));
+        for (l, r, val) in updates {
+            tree.range_update(l, r, val);
+            println!("{:?}", tree.ft.tree);
+        }
+
+        let queries = vec![0, 3, 4];
+        for index in queries {
+            println!("{}", tree.access(index));
+        }
+    }
 }
